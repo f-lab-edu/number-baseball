@@ -15,7 +15,9 @@ public class NumberBaseball {
             System.exit(0);
         }
 
+        // 추후 for문으로 9라운드 게임을 돌리는 함수 안에 들어갈 예정. log용 print
         System.out.println("1회가 시작되었습니다");
+
 
     }
 
@@ -25,14 +27,13 @@ public class NumberBaseball {
         while (repeatAsking) {
             System.out.println("새 게임을 시작하시겠습니까? y/n");
             Scanner scan = new Scanner(System.in);
-
             String input = scan.next().toLowerCase();
             switch (input) {
-                case "y" :
+                case "y":
                     isStart = true;
                     repeatAsking = false;
                     break;
-                case "n" :
+                case "n":
                     repeatAsking = false;
                     break;
                 default:
