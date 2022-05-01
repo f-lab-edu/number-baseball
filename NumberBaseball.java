@@ -6,31 +6,56 @@ public class NumberBaseball {
     private int s = 0;
     private int b = 0;
     private int o = 0;
-    private int round = 0;
 
     public static void main(String[] args) {
-        NumberBaseball game = new NumberBaseball();
-        //게임 시작 물어보기 (y로 응답시에만 시작)
-        Boolean isStart = game.askToStart();
-        if (!isStart) {
-            System.out.println("게임이 종료되었습니다.");
-            System.exit(0);
+        while (true) {
+            NumberBaseball game = new NumberBaseball();
+            //게임 시작 물어보기 (y로 응답시에만 시작)
+            boolean isStart = game.askToStart();
+            if (!isStart) {
+                System.out.println("게임이 종료되었습니다.");
+                break;
+            }
+
+            boolean isWin = game.playGame();
+            if (isWin) {
+                System.out.println("승리했습니다. 축하드립니다 >_</");
+            } else {
+                System.out.println("패배했습니다. 아쉽습니다 ^^*");
+            }
         }
+    }
 
-        // 추후 for문으로 9라운드 게임을 돌리는 함수 안에 들어갈 예정. log용 print
-        System.out.println("1회가 시작되었습니다");
+    private boolean playGame() {
+        boolean isWin = false;
+        // 정답 생성
+        List<Integer> answer = this.creatAnswer();
 
-        // user 추측 받기 (중복되지 않는 3자리 숫자)
-        List<Integer> answer =  game.creatAnswer();
-        List<Integer> userGuess = game.userGuess();
+        for (int round = 1; round < 10; round++) {
+            System.out.printf("%d회가 시작되었습니다\n", round);
+            if (round > 1) {
+                this.s = 0;
+                this.b = 0;
+                this.o = 0;
+            }
+            // user 추측 받기 (중복되지 않는 3자리 숫자)
+            List<Integer> userGuess = this.userGuess();
 
-        //게임결과 출력(1회당)
-        game.judge(answer, userGuess);
+            // 심판
+            this.judge(userGuess, answer);
+
+            //승리시 라운드 종료
+            if (this.s == 3) {
+                isWin = true;
+                break;
+            }
+        }
+        return isWin;
     }
 
     private boolean askToStart() {
-        Boolean repeatAsking = true;
-        Boolean isStart = false;
+        boolean repeatAsking = true;
+        boolean isStart = false;
         while (repeatAsking) {
             System.out.println("새 게임을 시작하시겠습니까? y/n");
             Scanner scan = new Scanner(System.in);
@@ -52,19 +77,18 @@ public class NumberBaseball {
 
     private List<Integer> creatAnswer() {
         //중복되지 않는 3자리 숫자 랜덤 answer 생성 함수
-
         List<Integer> numlist = new ArrayList<>();
         for (int i = 0; i <= 9; i++) {
             numlist.add(i);
         }
         Collections.shuffle(numlist);
-        numlist = numlist.subList(0,3);
+        numlist = numlist.subList(0, 3);
 
-        //출력(String)
-        String answer = numlist.stream()
-                                .map(Object::toString)
-                                .collect(Collectors.joining(", "));
-        System.out.println(answer);
+//        //출력(String)
+//        String answer = numlist.stream()
+//                .map(Object::toString)
+//                .collect(Collectors.joining(", "));
+//        System.out.println(answer);
 
         //List 형식 반환
         return numlist;
@@ -83,20 +107,16 @@ public class NumberBaseball {
                         .mapToInt(Integer::parseInt)
                         .boxed()
                         .collect(Collectors.toList());
-                //System.out.println(userInput.size());
 
                 //유효성 검증
                 if (userInput.size() != 3) {
                     System.out.println("3자리 숫자가 아닙니다.");
                     continue;
-                }
-
-                else if (userInput.stream().distinct().count() != 3) {
+                } else if (userInput.stream().distinct().count() != 3) {
                     System.out.println("중복된 숫자가 있습니다.");
                     continue;
                 }
-
-                System.out.println("input 받음");
+                // 제대로 값 받으면 input 받기 종료
                 break;
             } catch (NumberFormatException e) {
                 System.out.println(e);
@@ -111,23 +131,20 @@ public class NumberBaseball {
         return userInput;
     }
 
-    private List<Integer> judge(List<Integer> userguess, List<Integer> answer){
+    private void judge(List<Integer> userguess, List<Integer> answer) {
 
         for (int i = 0; i < answer.size(); i++) {
-            if(answer.contains(userguess.get(i))){
-                if(answer.get(i).equals(userguess.get(i))){
-                        s++;
-                }else {
-                        b++;
+            if (answer.contains(userguess.get(i))) {
+                if (answer.get(i).equals(userguess.get(i))) {
+                    s++;
+                } else {
+                    b++;
                 }
-            }else{
-                    o++;
+            } else {
+                o++;
             }
         }
-
-
         //결과값 출력
-        System.out.printf("%dS %dB %dO\n",s,b,o);
-        return Arrays.asList(s,b,o);
+        System.out.printf("%dS %dB %dO\n", s, b, o);
     }
 }
