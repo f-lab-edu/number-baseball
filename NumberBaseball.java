@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,25 +20,10 @@ public class NumberBaseball {
         // 추후 for문으로 9라운드 게임을 돌리는 함수 안에 들어갈 예정. log용 print
         System.out.println("1회가 시작되었습니다");
         // user 추측 받기 (중복되지 않는 3자리 숫자)
+        game.creatAnswer();
         List<Integer> userGuess = game.userGuess();
 
     }
-
-        private void creatAnswer() {
-            //중복되지 않는 3자리 숫자 랜덤 answer 생성 함수
-
-            List<Integer> numlist = new ArrayList<>();
-            for (int i = 0; i <= 9; i++) {
-                numlist.add(i);
-            }
-            Collections.shuffle(numlist);
-            numlist = numlist.subList(0,3);
-
-            //출력
-            String answer = numlist.stream().map(Object::toString)
-                    .collect(Collectors.joining(", "));
-            System.out.println(answer);
-        }
 
     private boolean askToStart() {
         Boolean repeatAsking = true;
@@ -59,6 +45,26 @@ public class NumberBaseball {
             }
         }
         return isStart;
+    }
+
+    private List<Integer> creatAnswer() {
+        //중복되지 않는 3자리 숫자 랜덤 answer 생성 함수
+
+        List<Integer> numlist = new ArrayList<>();
+        for (int i = 0; i <= 9; i++) {
+            numlist.add(i);
+        }
+        Collections.shuffle(numlist);
+        numlist = numlist.subList(0,3);
+
+        //출력(String)
+        String answer = numlist.stream()
+                                .map(Object::toString)
+                                .collect(Collectors.joining(", "));
+        System.out.println(answer);
+
+        //List 형식 반환
+        return numlist;
     }
 
     private List<Integer> userGuess() {
