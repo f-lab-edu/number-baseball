@@ -7,20 +7,23 @@ public class NumberBaseball {
     private int o = 0;
 
     public static void main(String[] args) {
-        NumberBaseball game = new NumberBaseball();
-        //게임 시작 물어보기 (y로 응답시에만 시작)
-        Boolean isStart = game.askToStart();
-        if (!isStart) {
-            System.out.println("게임이 종료되었습니다.");
-            System.exit(0);
+        while (true) {
+            NumberBaseball game = new NumberBaseball();
+            //게임 시작 물어보기 (y로 응답시에만 시작)
+            Boolean isStart = game.askToStart();
+            if (!isStart) {
+                System.out.println("게임이 종료되었습니다.");
+                break;
+            }
+
+            Boolean isWin = game.playGame();
+            if (isWin) {
+                System.out.println("승리했습니다. 축하드립니다 >_</");
+            } else {
+                System.out.println("패배했습니다. 아쉽습니다 ^^*");
+            }
         }
 
-        Boolean isWin = game.playGame();
-        if (isWin) {
-            System.out.println("승리했습니다. 축하드립니다 >_</");
-        } else {
-            System.out.println("패배했습니다. 아쉽습니다 ^^*");
-        }
 
     }
 
