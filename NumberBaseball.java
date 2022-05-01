@@ -1,4 +1,6 @@
-import java.util.Scanner;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class NumberBaseball {
     private int s = 0;
@@ -17,7 +19,7 @@ public class NumberBaseball {
 
         // 추후 for문으로 9라운드 게임을 돌리는 함수 안에 들어갈 예정. log용 print
         System.out.println("1회가 시작되었습니다");
-
+        List<Integer> userGuess = game.userGuess();
 
     }
 
@@ -43,4 +45,42 @@ public class NumberBaseball {
         return isStart;
     }
 
+    private List<Integer> userGuess() {
+        List<Integer> userInput = List.of();
+        while (true) {
+            System.out.println("중복되지 않는 숫자 3개를 입력해 주세요");
+            Scanner scan = new Scanner(System.in);
+            try {
+                userInput = Arrays.stream(scan.nextLine()
+                                .trim()
+                                .split(""))
+                        .filter(x -> !x.equals(" "))
+                        .mapToInt(Integer::parseInt)
+                        .boxed()
+                        .collect(Collectors.toList());
+                System.out.println(userInput.size());
+                if (userInput.size() != 3) {
+                    System.out.println("3자리 숫자가 아닙니다.");
+                    continue;
+                }
+//                Set<Integer> userInputSet = new HashSet<>(userInputList);
+                else if (userInput.stream().distinct().count() != 3) {
+                    System.out.println("중복된 숫자가 있습니다.");
+                    continue;
+                }
+
+                System.out.println("input 받음");
+                break;
+            } catch (NumberFormatException e) {
+                System.out.println(e);
+                System.out.println("숫자 형식이 아닙니다.");
+            } catch (Exception e) {
+                System.out.println(e);
+                break;
+            }
+        }
+
+
+        return userInput;
+    }
 }
