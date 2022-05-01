@@ -2,10 +2,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class NumberBaseball {
-    private int s = 0;
-    private int b = 0;
-    private int o = 0;
-
     public static void main(String[] args) {
         while (true) {
             NumberBaseball game = new NumberBaseball();
@@ -16,6 +12,7 @@ public class NumberBaseball {
                 break;
             }
 
+            // 게임
             Boolean isWin = game.playGame();
             if (isWin) {
                 System.out.println("승리했습니다. 축하드립니다 >_</");
@@ -23,12 +20,11 @@ public class NumberBaseball {
                 System.out.println("패배했습니다. 아쉽습니다 ^^*");
             }
         }
-
-
     }
 
     private Boolean playGame() {
         Boolean isWin = false;
+        // 정답 생성
         List<Integer> answer = this.creatAnswer();
 
         for (int round = 1; round < 10; round++) {
@@ -110,8 +106,7 @@ public class NumberBaseball {
                     System.out.println("중복된 숫자가 있습니다.");
                     continue;
                 }
-
-                System.out.println("input 받음");
+                // 제대로 값 받으면 input 받기 종료
                 break;
             } catch (NumberFormatException e) {
                 System.out.println(e);
