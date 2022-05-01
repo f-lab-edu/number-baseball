@@ -12,8 +12,7 @@ public class NumberBaseball {
                 break;
             }
 
-            // 게임
-            Boolean isWin = game.playGame();
+            boolean isWin = game.playGame();
             if (isWin) {
                 System.out.println("승리했습니다. 축하드립니다 >_</");
             } else {
@@ -22,8 +21,8 @@ public class NumberBaseball {
         }
     }
 
-    private Boolean playGame() {
-        Boolean isWin = false;
+    private boolean playGame() {
+        boolean isWin = false;
         // 정답 생성
         List<Integer> answer = this.creatAnswer();
 
@@ -96,7 +95,6 @@ public class NumberBaseball {
                         .mapToInt(Integer::parseInt)
                         .boxed()
                         .collect(Collectors.toList());
-                System.out.println(userInput.size());
 
                 //유효성 검증
                 if (userInput.size() != 3) {
