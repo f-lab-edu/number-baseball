@@ -19,10 +19,13 @@ public class NumberBaseball {
 
         // 추후 for문으로 9라운드 게임을 돌리는 함수 안에 들어갈 예정. log용 print
         System.out.println("1회가 시작되었습니다");
+
         // user 추측 받기 (중복되지 않는 3자리 숫자)
-        game.creatAnswer();
+        List<Integer> answer =  game.creatAnswer();
         List<Integer> userGuess = game.userGuess();
 
+        //게임결과 출력(1회당)
+        game.judge(answer, userGuess);
     }
 
     private boolean askToStart() {
@@ -80,7 +83,7 @@ public class NumberBaseball {
                         .mapToInt(Integer::parseInt)
                         .boxed()
                         .collect(Collectors.toList());
-                System.out.println(userInput.size());
+                //System.out.println(userInput.size());
 
                 //유효성 검증
                 if (userInput.size() != 3) {
@@ -106,5 +109,25 @@ public class NumberBaseball {
 
 
         return userInput;
+    }
+
+    private List<Integer> judge(List<Integer> userguess, List<Integer> answer){
+
+        for (int i = 0; i < answer.size(); i++) {
+            if(answer.contains(userguess.get(i))){
+                if(answer.get(i).equals(userguess.get(i))){
+                        s++;
+                }else {
+                        b++;
+                }
+            }else{
+                    o++;
+            }
+        }
+
+
+        //결과값 출력
+        System.out.printf("%dS %dB %dO\n",s,b,o);
+        return Arrays.asList(s,b,o);
     }
 }
