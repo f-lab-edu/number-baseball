@@ -11,7 +11,7 @@ public class NumberBaseball {
         while (true) {
             NumberBaseball game = new NumberBaseball();
             //게임 시작 물어보기 (y로 응답시에만 시작)
-            Boolean isStart = game.askToStart();
+            boolean isStart = game.askToStart();
             if (!isStart) {
                 System.out.println("게임이 종료되었습니다.");
                 break;
@@ -32,7 +32,7 @@ public class NumberBaseball {
         List<Integer> answer = this.creatAnswer();
 
         for (int round = 1; round < 10; round++) {
-            System.out.println(String.format("%d회가 시작되었습니다", round));
+            System.out.printf("%d회가 시작되었습니다\n", round);
             if (round > 1) {
                 this.s = 0;
                 this.b = 0;
@@ -54,8 +54,8 @@ public class NumberBaseball {
     }
 
     private boolean askToStart() {
-        Boolean repeatAsking = true;
-        Boolean isStart = false;
+        boolean repeatAsking = true;
+        boolean isStart = false;
         while (repeatAsking) {
             System.out.println("새 게임을 시작하시겠습니까? y/n");
             Scanner scan = new Scanner(System.in);
