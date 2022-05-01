@@ -133,20 +133,20 @@ public class NumberBaseball {
         return userInput;
     }
 
-    private void judge(List<Integer> userguess, List<Integer> answer){
+    private void judge(List<Integer> userguess, List<Integer> answer) {
 
         for (int i = 0; i < answer.size(); i++) {
-            if(answer.contains(userguess.get(i))){
-                if(answer.get(i).equals(userguess.get(i))){
-                        s++;
-                }else {
-                        b++;
+            if (answer.contains(userguess.get(i))) {
+                if (answer.get(i).equals(userguess.get(i))) {
+                    s++;
+                } else {
+                    b++;
                 }
-            }else{
-                    o++;
+            } else {
+                o++;
             }
         }
         //결과값 출력
-        System.out.printf("%dS %dB %dO\n",s,b,o);
+        System.out.printf("%dS %dB %dO\n", s, b, o);
     }
 }
