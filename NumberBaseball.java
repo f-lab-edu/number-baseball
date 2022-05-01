@@ -10,8 +10,8 @@ public class NumberBaseball {
 
     public static void main(String[] args) {
         NumberBaseball game = new NumberBaseball();
+        //게임 시작 물어보기 (y로 응답시에만 시작)
         Boolean isStart = game.askToStart();
-
         if (!isStart) {
             System.out.println("게임이 종료되었습니다.");
             System.exit(0);
@@ -19,6 +19,7 @@ public class NumberBaseball {
 
         // 추후 for문으로 9라운드 게임을 돌리는 함수 안에 들어갈 예정. log용 print
         System.out.println("1회가 시작되었습니다");
+        // user 추측 받기 (중복되지 않는 3자리 숫자)
         List<Integer> userGuess = game.userGuess();
 
     }
@@ -59,11 +60,13 @@ public class NumberBaseball {
                         .boxed()
                         .collect(Collectors.toList());
                 System.out.println(userInput.size());
+
+                //유효성 검증
                 if (userInput.size() != 3) {
                     System.out.println("3자리 숫자가 아닙니다.");
                     continue;
                 }
-//                Set<Integer> userInputSet = new HashSet<>(userInputList);
+
                 else if (userInput.stream().distinct().count() != 3) {
                     System.out.println("중복된 숫자가 있습니다.");
                     continue;
