@@ -127,7 +127,7 @@ public class NumberBaseball {
 
 
         //결과값 출력
-        System.out.printf("%dS %dB %dO",s,b,o);
+        System.out.printf("%dS %dB %dO\n",s,b,o);
         return Arrays.asList(s,b,o);
     }
 }
