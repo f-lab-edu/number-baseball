@@ -41,11 +41,11 @@ public class NumberBaseball {
             }
             // user 추측 받기 (중복되지 않는 3자리 숫자)
             List<Integer> userGuess = this.userGuess();
-            //judge 함수 들어갈 자리. 테스트용
-            if (answer.get(0) == userGuess.get(0)) {
-                this.s = 3;
-            }
 
+            // 심판
+            this.judge(userGuess, answer);
+
+            //승리시 라운드 종료
             if (this.s == 3) {
                 isWin = true;
                 break;
@@ -133,7 +133,7 @@ public class NumberBaseball {
         return userInput;
     }
 
-    private List<Integer> judge(List<Integer> userguess, List<Integer> answer){
+    private void judge(List<Integer> userguess, List<Integer> answer){
 
         for (int i = 0; i < answer.size(); i++) {
             if(answer.contains(userguess.get(i))){
@@ -146,10 +146,7 @@ public class NumberBaseball {
                     o++;
             }
         }
-
-
         //결과값 출력
         System.out.printf("%dS %dB %dO\n",s,b,o);
-        return Arrays.asList(s,b,o);
     }
 }
