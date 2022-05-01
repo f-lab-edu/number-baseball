@@ -2,6 +2,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class NumberBaseball {
+    private int s = 0;
+    private int b = 0;
+    private int o = 0;
+
     public static void main(String[] args) {
         while (true) {
             NumberBaseball game = new NumberBaseball();
@@ -28,11 +32,20 @@ public class NumberBaseball {
 
         for (int round = 1; round < 10; round++) {
             System.out.println(String.format("%d회가 시작되었습니다", round));
+            if (round >1) {
+                this.s = 0;
+                this.b = 0;
+                this.o = 0;
+            }
             // user 추측 받기 (중복되지 않는 3자리 숫자)
             List<Integer> userGuess = this.userGuess();
 
-            //judge 함수 들어갈 자리. 테스트용 함수로 대체
+            //judge 함수 들어갈 자리. 테스트용
             if (answer.get(0) == userGuess.get(0)) {
+                this.s = 3;
+            }
+
+            if (this.s == 3) {
                 isWin = true;
                 break;
             }
