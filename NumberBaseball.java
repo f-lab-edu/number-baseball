@@ -6,7 +6,6 @@ public class NumberBaseball {
     private int s = 0;
     private int b = 0;
     private int o = 0;
-    private int round = 0;
 
     public static void main(String[] args) {
         while (true) {
@@ -78,7 +77,6 @@ public class NumberBaseball {
 
     private List<Integer> creatAnswer() {
         //중복되지 않는 3자리 숫자 랜덤 answer 생성 함수
-
         List<Integer> numlist = new ArrayList<>();
         for (int i = 0; i <= 9; i++) {
             numlist.add(i);
