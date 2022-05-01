@@ -84,11 +84,11 @@ public class NumberBaseball {
         Collections.shuffle(numlist);
         numlist = numlist.subList(0, 3);
 
-        //출력(String)
-        String answer = numlist.stream()
-                .map(Object::toString)
-                .collect(Collectors.joining(", "));
-        System.out.println(answer);
+//        //출력(String)
+//        String answer = numlist.stream()
+//                .map(Object::toString)
+//                .collect(Collectors.joining(", "));
+//        System.out.println(answer);
 
         //List 형식 반환
         return numlist;
