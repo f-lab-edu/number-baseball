@@ -1,4 +1,3 @@
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -6,7 +5,6 @@ public class NumberBaseball {
     private int s = 0;
     private int b = 0;
     private int o = 0;
-    private int round = 0;
 
     public static void main(String[] args) {
         NumberBaseball game = new NumberBaseball();
@@ -17,12 +15,31 @@ public class NumberBaseball {
             System.exit(0);
         }
 
-        // 추후 for문으로 9라운드 게임을 돌리는 함수 안에 들어갈 예정. log용 print
-        System.out.println("1회가 시작되었습니다");
-        // user 추측 받기 (중복되지 않는 3자리 숫자)
-        game.creatAnswer();
-        List<Integer> userGuess = game.userGuess();
+        Boolean isWin = game.playGame();
+        if (isWin) {
+            System.out.println("승리했습니다. 축하드립니다 >_</");
+        } else {
+            System.out.println("패배했습니다. 아쉽습니다 ^^*");
+        }
 
+    }
+
+    private Boolean playGame() {
+        Boolean isWin = false;
+        List<Integer> answer = this.creatAnswer();
+
+        for (int round = 1; round < 10; round++) {
+            System.out.println(String.format("%d회가 시작되었습니다", round));
+            // user 추측 받기 (중복되지 않는 3자리 숫자)
+            List<Integer> userGuess = this.userGuess();
+
+            //judge 함수 들어갈 자리. 테스트용 함수로 대체
+            if (answer.get(0) == userGuess.get(0)) {
+                isWin = true;
+                break;
+            }
+        }
+        return isWin;
     }
 
     private boolean askToStart() {
@@ -55,12 +72,12 @@ public class NumberBaseball {
             numlist.add(i);
         }
         Collections.shuffle(numlist);
-        numlist = numlist.subList(0,3);
+        numlist = numlist.subList(0, 3);
 
         //출력(String)
         String answer = numlist.stream()
-                                .map(Object::toString)
-                                .collect(Collectors.joining(", "));
+                .map(Object::toString)
+                .collect(Collectors.joining(", "));
         System.out.println(answer);
 
         //List 형식 반환
@@ -86,9 +103,7 @@ public class NumberBaseball {
                 if (userInput.size() != 3) {
                     System.out.println("3자리 숫자가 아닙니다.");
                     continue;
-                }
-
-                else if (userInput.stream().distinct().count() != 3) {
+                } else if (userInput.stream().distinct().count() != 3) {
                     System.out.println("중복된 숫자가 있습니다.");
                     continue;
                 }
