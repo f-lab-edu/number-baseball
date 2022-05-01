@@ -3,9 +3,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class NumberBaseball {
-    private int s = 0;
-    private int b = 0;
-    private int o = 0;
+
 
     public static void main(String[] args) {
         while (true) {
@@ -17,40 +15,39 @@ public class NumberBaseball {
                 break;
             }
 
-            boolean isWin = game.playGame();
-            if (isWin) {
-                System.out.println("승리했습니다. 축하드립니다 >_</");
-            } else {
-                System.out.println("패배했습니다. 아쉽습니다 ^^*");
-            }
+            game.playGame();
+
+
         }
     }
 
-    private boolean playGame() {
+    private void playGame() {
         boolean isWin = false;
         // 정답 생성
         List<Integer> answer = this.creatAnswer();
 
         for (int round = 1; round < 10; round++) {
             System.out.printf("%d회가 시작되었습니다\n", round);
-            if (round > 1) {
-                this.s = 0;
-                this.b = 0;
-                this.o = 0;
-            }
+
             // user 추측 받기 (중복되지 않는 3자리 숫자)
             List<Integer> userGuess = this.userGuess();
 
             // 심판
-            this.judge(userGuess, answer);
+            List<Integer> result = this.judge(userGuess, answer);
 
-            //승리시 라운드 종료
-            if (this.s == 3) {
+            //승리시 라운드 종료(s의값이 3이면)
+            if (result.get(0) == 3) {
                 isWin = true;
                 break;
             }
         }
-        return isWin;
+
+        if (isWin) {
+            System.out.println("승리했습니다. 축하드립니다 >_</");
+        } else {
+            System.out.println("패배했습니다. 아쉽습니다 ^^*");
+        }
+
     }
 
     private boolean askToStart() {
@@ -131,7 +128,11 @@ public class NumberBaseball {
         return userInput;
     }
 
-    private void judge(List<Integer> userguess, List<Integer> answer) {
+    private List<Integer> judge(List<Integer> userguess, List<Integer> answer) {
+        //sbo초기화
+        int s = 0;
+        int b = 0;
+        int o = 0;
 
         for (int i = 0; i < answer.size(); i++) {
             if (answer.contains(userguess.get(i))) {
@@ -146,5 +147,7 @@ public class NumberBaseball {
         }
         //결과값 출력
         System.out.printf("%dS %dB %dO\n", s, b, o);
+
+        return Arrays.asList(s, b, o);
     }
 }
